@@ -19,6 +19,9 @@ jobs:
     - name: Install Newman CLI
       run: npm install -g newman
 
+    - name: List files in the working directory  # Debug step
+      run: ls -la
+
     - name: Run Postman collection with 2 file uploads
       run: |
         newman run "collection/Android single floor (patched).postman_collection.json" \
@@ -26,10 +29,11 @@ jobs:
           --global-var file1="files/VID_20250415_144708_00_017.mp4" \
           --global-var file2="files/VID_20250415_144708_10_017.mp4" \
           --reporters cli,html \
-          --reporter-html-export newman-report.html
+          --reporter-html-export newman-report.html \
+          --verbose
 
     - name: Upload Newman HTML Report
-      uses: actions/upload-artifact@v3.1.3
+      uses: actions/upload-artifact@v3
       with:
         name: newman-report
         path: newman-report.html
