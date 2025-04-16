@@ -1,0 +1,35 @@
+name: Run Postman Collection with Video Uploads
+
+on:
+  workflow_dispatch:  # allows manual trigger from the Actions tab
+
+jobs:
+  run-newman:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Newman CLI
+      run: npm install -g newman
+
+    - name: Run Postman collection with 2 file uploads
+      run: |
+        newman run "collection/Android single floor (patched).postman_collection.json" \
+          --environment "collection/whiteHelmet.postman_environment.json" \
+          --global-var file1="files/VID_20250415_144708_00_017.mp4" \
+          --global-var file2="files/VID_20250415_144708_10_017.mp4" \
+          --reporters cli,html \
+          --reporter-html-export newman-report.html
+
+    - name: Upload Newman HTML Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: newman-report
+        path: newman-report.html
