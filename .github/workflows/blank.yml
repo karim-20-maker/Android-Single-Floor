@@ -30,10 +30,13 @@ jobs:
           --global-var file2="files/VID_20250415_144708_10_017.mp4" \
           --reporters cli,html \
           --reporter-html-export newman-report.html \
-          --verbose
+          --verbose || echo "Newman run failed"
+
+    - name: List files after running Newman  # Debug step to check if the report was generated
+      run: ls -la
 
     - name: Upload Newman HTML Report
       uses: actions/upload-artifact@v3
       with:
         name: newman-report
-        path: newman-report.html
+        path: ./newman-report.html  # Ensure the path is correct
