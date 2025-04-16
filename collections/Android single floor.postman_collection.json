@@ -1,0 +1,728 @@
+{
+	"info": {
+		"_postman_id": "2b316ad9-2b8d-4eb1-ad81-b8596acef18f",
+		"name": "Android single floor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11661751"
+	},
+	"item": [
+		{
+			"name": "publishReport",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body as JSON\r",
+							"let response = pm.response.json();\r",
+							"\r",
+							"// Extract report_id\r",
+							"let reportId = response.report_details.report_id;\r",
+							"\r",
+							"// Set it as an environment variable (optional)\r",
+							"pm.environment.set(\"report_id\", reportId);\r",
+							"\r",
+							"// Log it to the Postman console (optional)\r",
+							"console.log(\"Extracted Report ID:\", reportId);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0Zy53aGl0ZWhlbG1ldC5zYS9hcGkvdmVyaWZ5X290cCIsImlhdCI6MTc0NDcwODc0MywibmJmIjoxNzQ0NzA4NzQzLCJqdGkiOiJoMmc4bkV5VEx0THBNeWNaIiwic3ViIjoiNzIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsImp3dF90b2tlbl90eXBlIjoiYXV0aCIsInBsYXRmb3JtIjoibW9iaWxlIiwiYWxsb3dfcmVxdWVzdHNfZnJvbSI6WyJ3ZWIiLCJtb2JpbGUiXX0.pgA_xLyfeh2SznRgSjNKgmR0Fq1nt6WsvHUQZMRgGSk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "userLang",
+						"value": "en",
+						"type": "text"
+					},
+					{
+						"key": "platform",
+						"value": "mobile",
+						"type": "text"
+					},
+					{
+						"key": "appVersion",
+						"value": "1.6.6.stg",
+						"type": "text"
+					},
+					{
+						"key": "timezone",
+						"value": "Africa/Cairo",
+						"type": "text"
+					},
+					{
+						"key": "os",
+						"value": "android",
+						"type": "text"
+					},
+					{
+						"key": "appName",
+						"value": "captureApp",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Incomplete",
+						"value": "?0",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Draft-Interop-Version",
+						"value": "3",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "project_id",
+							"value": "1fb77620-be08-4dcd-908d-cef3fefe8326",
+							"type": "text"
+						},
+						{
+							"key": "report_name",
+							"value": "{{$randomFileName}}",
+							"type": "text"
+						},
+						{
+							"key": "report_type",
+							"value": "videos",
+							"type": "text"
+						},
+						{
+							"key": "total_number_of_attachments",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL_STG}}api/publish_report",
+					"host": [
+						"{{URL_STG}}api"
+					],
+					"path": [
+						"publish_report"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GO-upload report files",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body as JSON\r",
+							"let response = pm.response.json();\r",
+							"\r",
+							"// Extract report_id\r",
+							"let upload_url = response.data.upload_url;\r",
+							"\r",
+							"// Set it as an environment variable (optional)\r",
+							"pm.environment.set(\"upload_url\", upload_url);\r",
+							"\r",
+							"// Log it to the Postman console (optional)\r",
+							"console.log(\"Extracted upload ID:\", upload_url);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0Zy53aGl0ZWhlbG1ldC5zYS9hcGkvdmVyaWZ5X290cCIsImlhdCI6MTc0NDcwODc0MywibmJmIjoxNzQ0NzA4NzQzLCJqdGkiOiJoMmc4bkV5VEx0THBNeWNaIiwic3ViIjoiNzIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsImp3dF90b2tlbl90eXBlIjoiYXV0aCIsInBsYXRmb3JtIjoibW9iaWxlIiwiYWxsb3dfcmVxdWVzdHNfZnJvbSI6WyJ3ZWIiLCJtb2JpbGUiXX0.pgA_xLyfeh2SznRgSjNKgmR0Fq1nt6WsvHUQZMRgGSk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "userLang",
+						"value": "en",
+						"type": "text"
+					},
+					{
+						"key": "platform",
+						"value": "mobile",
+						"type": "text"
+					},
+					{
+						"key": "appVersion",
+						"value": "1.6.6.stg",
+						"type": "text"
+					},
+					{
+						"key": "timezone",
+						"value": "Africa/Cairo",
+						"type": "text"
+					},
+					{
+						"key": "os",
+						"value": "android",
+						"type": "text"
+					},
+					{
+						"key": "appName",
+						"value": "captureApp",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Incomplete",
+						"value": "?0",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Draft-Interop-Version",
+						"value": "3",
+						"type": "text"
+					},
+					{
+						"key": "report_id",
+						"value": "{{report_id}}",
+						"type": "text"
+					},
+					{
+						"key": "file_name",
+						"value": "VID_20250415_144708_00_018.mp4",
+						"type": "text"
+					},
+					{
+						"key": "attachment_type",
+						"value": "video_00",
+						"type": "text"
+					},
+					{
+						"key": "floor_id",
+						"value": "{{floor_id}}",
+						"type": "text"
+					},
+					{
+						"key": "source_type",
+						"value": "mobile",
+						"type": "text"
+					},
+					{
+						"key": "file_name",
+						"value": "VID_20250415_144708_00_017",
+						"type": "text"
+					},
+					{
+						"key": "mimeType",
+						"value": "octet-stream",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Offset",
+						"value": "0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://be-go-stg.whitehelmet.sa/api/upload-report-files",
+					"protocol": "https",
+					"host": [
+						"be-go-stg",
+						"whitehelmet",
+						"sa"
+					],
+					"path": [
+						"api",
+						"upload-report-files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "uploadingFile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0Zy53aGl0ZWhlbG1ldC5zYS9hcGkvdmVyaWZ5X290cCIsImlhdCI6MTc0NDcwODc0MywibmJmIjoxNzQ0NzA4NzQzLCJqdGkiOiJoMmc4bkV5VEx0THBNeWNaIiwic3ViIjoiNzIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsImp3dF90b2tlbl90eXBlIjoiYXV0aCIsInBsYXRmb3JtIjoibW9iaWxlIiwiYWxsb3dfcmVxdWVzdHNfZnJvbSI6WyJ3ZWIiLCJtb2JpbGUiXX0.pgA_xLyfeh2SznRgSjNKgmR0Fq1nt6WsvHUQZMRgGSk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Upload-Offset",
+						"value": "0",
+						"type": "text"
+					},
+					{
+						"key": "file_mime_type",
+						"value": "video/mp4",
+						"type": "text"
+					},
+					{
+						"key": "camera_serial_number",
+						"value": "IXSE43CNEEWQUG",
+						"type": "text"
+					},
+					{
+						"key": "userLang",
+						"value": "en",
+						"type": "text"
+					},
+					{
+						"key": "platform",
+						"value": "mobile",
+						"type": "text"
+					},
+					{
+						"key": "appVersion",
+						"value": "1.6.6.stg",
+						"type": "text"
+					},
+					{
+						"key": "timezone",
+						"value": "Africa/Cairo",
+						"type": "text"
+					},
+					{
+						"key": "os",
+						"value": "android",
+						"type": "text"
+					},
+					{
+						"key": "appName",
+						"value": "captureApp",
+						"type": "text"
+					},
+					{
+						"key": "file_name",
+						"value": "VID_20250415_144708_00_017.mp4",
+						"type": "text"
+					},
+					{
+						"key": "report_id",
+						"value": "{{report_id}}",
+						"type": "text"
+					},
+					{
+						"key": "floor_id",
+						"value": "{{floor_id}}",
+						"type": "text"
+					},
+					{
+						"key": "source_type",
+						"value": "mobile",
+						"type": "text"
+					},
+					{
+						"key": "start_point_x",
+						"value": "710",
+						"type": "text"
+					},
+					{
+						"key": "start_point_y",
+						"value": "167",
+						"type": "text"
+					},
+					{
+						"key": "start_point_timestamp",
+						"value": "1744721230646",
+						"type": "text"
+					},
+					{
+						"key": "end_point_timestamp",
+						"value": "1744721301593",
+						"type": "text"
+					},
+					{
+						"key": "camera_model",
+						"value": "{{camera_model}}",
+						"type": "text"
+					},
+					{
+						"key": "resolution_width",
+						"value": "{{resolution_width}}",
+						"type": "text"
+					},
+					{
+						"key": "resolution_height",
+						"value": "{{resolution_height}}",
+						"type": "text"
+					},
+					{
+						"key": "firmware_version",
+						"value": "{{firmware_version}}",
+						"type": "text"
+					},
+					{
+						"key": "attachment_type",
+						"value": "video_00",
+						"type": "text"
+					},
+					{
+						"key": "end_point_x",
+						"value": "{{end_point_x}}",
+						"type": "text"
+					},
+					{
+						"key": "end_point_y",
+						"value": "{{end_point_y}}",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Incomplete",
+						"value": "?0",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Draft-Interop-Version",
+						"value": "3",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Offset",
+						"value": "0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": "{{file1}}"
+					}
+				},
+				"url": {
+					"raw": "{{upload_url}}",
+					"host": [
+						"{{upload_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GO-upload report files Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body as JSON\r",
+							"let response = pm.response.json();\r",
+							"\r",
+							"// Extract report_id\r",
+							"let upload_url = response.data.upload_url;\r",
+							"\r",
+							"// Set it as an environment variable (optional)\r",
+							"pm.environment.set(\"upload_url\", upload_url);\r",
+							"\r",
+							"// Log it to the Postman console (optional)\r",
+							"console.log(\"Extracted upload ID:\", upload_url);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0Zy53aGl0ZWhlbG1ldC5zYS9hcGkvdmVyaWZ5X290cCIsImlhdCI6MTc0NDcwODc0MywibmJmIjoxNzQ0NzA4NzQzLCJqdGkiOiJoMmc4bkV5VEx0THBNeWNaIiwic3ViIjoiNzIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsImp3dF90b2tlbl90eXBlIjoiYXV0aCIsInBsYXRmb3JtIjoibW9iaWxlIiwiYWxsb3dfcmVxdWVzdHNfZnJvbSI6WyJ3ZWIiLCJtb2JpbGUiXX0.pgA_xLyfeh2SznRgSjNKgmR0Fq1nt6WsvHUQZMRgGSk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "userLang",
+						"value": "en",
+						"type": "text"
+					},
+					{
+						"key": "platform",
+						"value": "mobile",
+						"type": "text"
+					},
+					{
+						"key": "appVersion",
+						"value": "1.6.6.stg",
+						"type": "text"
+					},
+					{
+						"key": "timezone",
+						"value": "Africa/Cairo",
+						"type": "text"
+					},
+					{
+						"key": "os",
+						"value": "android",
+						"type": "text"
+					},
+					{
+						"key": "appName",
+						"value": "captureApp",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Incomplete",
+						"value": "?0",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Draft-Interop-Version",
+						"value": "3",
+						"type": "text"
+					},
+					{
+						"key": "report_id",
+						"value": "{{report_id}}",
+						"type": "text"
+					},
+					{
+						"key": "file_name",
+						"value": "VID_20250415_144708_00_018.mp4",
+						"type": "text"
+					},
+					{
+						"key": "attachment_type",
+						"value": "video_00",
+						"type": "text"
+					},
+					{
+						"key": "floor_id",
+						"value": "{{floor_id}}",
+						"type": "text"
+					},
+					{
+						"key": "source_type",
+						"value": "mobile",
+						"type": "text"
+					},
+					{
+						"key": "file_name",
+						"value": "VID_20250415_144708_10_017",
+						"type": "text"
+					},
+					{
+						"key": "mimeType",
+						"value": "octet-stream",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Offset",
+						"value": "0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://be-go-stg.whitehelmet.sa/api/upload-report-files",
+					"protocol": "https",
+					"host": [
+						"be-go-stg",
+						"whitehelmet",
+						"sa"
+					],
+					"path": [
+						"api",
+						"upload-report-files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "uploadingFile Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3N0Zy53aGl0ZWhlbG1ldC5zYS9hcGkvdmVyaWZ5X290cCIsImlhdCI6MTc0NDcwODc0MywibmJmIjoxNzQ0NzA4NzQzLCJqdGkiOiJoMmc4bkV5VEx0THBNeWNaIiwic3ViIjoiNzIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyIsImp3dF90b2tlbl90eXBlIjoiYXV0aCIsInBsYXRmb3JtIjoibW9iaWxlIiwiYWxsb3dfcmVxdWVzdHNfZnJvbSI6WyJ3ZWIiLCJtb2JpbGUiXX0.pgA_xLyfeh2SznRgSjNKgmR0Fq1nt6WsvHUQZMRgGSk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Upload-Offset",
+						"value": "0",
+						"type": "text"
+					},
+					{
+						"key": "file_mime_type",
+						"value": "video/mp4",
+						"type": "text"
+					},
+					{
+						"key": "camera_serial_number",
+						"value": "IXSE43CNEEWQUG",
+						"type": "text"
+					},
+					{
+						"key": "userLang",
+						"value": "en",
+						"type": "text"
+					},
+					{
+						"key": "platform",
+						"value": "mobile",
+						"type": "text"
+					},
+					{
+						"key": "appVersion",
+						"value": "1.6.6.stg",
+						"type": "text"
+					},
+					{
+						"key": "timezone",
+						"value": "Africa/Cairo",
+						"type": "text"
+					},
+					{
+						"key": "os",
+						"value": "android",
+						"type": "text"
+					},
+					{
+						"key": "appName",
+						"value": "captureApp",
+						"type": "text"
+					},
+					{
+						"key": "file_name",
+						"value": "VID_20250415_144708_10_017.mp4",
+						"type": "text"
+					},
+					{
+						"key": "report_id",
+						"value": "{{report_id}}",
+						"type": "text"
+					},
+					{
+						"key": "floor_id",
+						"value": "{{floor_id}}",
+						"type": "text"
+					},
+					{
+						"key": "source_type",
+						"value": "mobile",
+						"type": "text"
+					},
+					{
+						"key": "start_point_x",
+						"value": "710",
+						"type": "text"
+					},
+					{
+						"key": "start_point_y",
+						"value": "167",
+						"type": "text"
+					},
+					{
+						"key": "start_point_timestamp",
+						"value": "1744721230646",
+						"type": "text"
+					},
+					{
+						"key": "end_point_timestamp",
+						"value": "1744721301593",
+						"type": "text"
+					},
+					{
+						"key": "camera_model",
+						"value": "{{camera_model}}",
+						"type": "text"
+					},
+					{
+						"key": "resolution_width",
+						"value": "{{resolution_width}}",
+						"type": "text"
+					},
+					{
+						"key": "resolution_height",
+						"value": "{{resolution_height}}",
+						"type": "text"
+					},
+					{
+						"key": "firmware_version",
+						"value": "{{firmware_version}}",
+						"type": "text"
+					},
+					{
+						"key": "attachment_type",
+						"value": "video_10",
+						"type": "text"
+					},
+					{
+						"key": "end_point_x",
+						"value": "{{end_point_x}}",
+						"type": "text"
+					},
+					{
+						"key": "end_point_y",
+						"value": "{{end_point_y}}",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Incomplete",
+						"value": "?0",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Draft-Interop-Version",
+						"value": "3",
+						"type": "text"
+					},
+					{
+						"key": "Upload-Offset",
+						"value": "0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": "{{file2}}"
+					}
+				},
+				"url": {
+					"raw": "{{upload_url}}",
+					"host": [
+						"{{upload_url}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
